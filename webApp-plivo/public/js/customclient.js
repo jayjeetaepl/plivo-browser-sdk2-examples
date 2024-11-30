@@ -914,6 +914,9 @@ $('#makecall').click(function (e) {
 	// 	extraHeaders = { 'X-PH-callerId': customCallerId };
 	// }
 	extraHeaders["X-PH-conference"] = "true";
+	extraHeaders["uid"] = uid
+	extraHeaders['deviceId'] = deviceId
+	
 	var callEnabled = $('#makecall').attr('class').match('disabled');
 	if (!to || !plivoBrowserSdk || !!callEnabled) { return };
 	if (!plivoBrowserSdk.client.isLoggedIn) { alert('You\'re not Logged in!') }

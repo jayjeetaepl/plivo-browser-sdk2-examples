@@ -916,11 +916,11 @@ $('#makecall').click(function (e) {
 	extraHeaders["X-PH-conference"] = "true";
 	extraHeaders["uid"] = uid
 	extraHeaders['deviceId'] = deviceId
-	
+
 	var callEnabled = $('#makecall').attr('class').match('disabled');
 	if (!to || !plivoBrowserSdk || !!callEnabled) { return };
 	if (!plivoBrowserSdk.client.isLoggedIn) { alert('You\'re not Logged in!') }
-	plivoBrowserSdk.client.call(to, extraHeaders);
+	plivoBrowserSdk.client.call(uid, extraHeaders);
 	console.info('Click make call : ', to);
 	callStorage.mode = "out";
 	callStorage.startTime = date();

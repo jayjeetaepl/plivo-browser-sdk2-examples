@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>plivo webphone</title>
 	<meta charset="utf-8">
@@ -15,19 +16,21 @@
 	<link rel="stylesheet" href="/css/intlTelInput.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 	<link rel="stylesheet" href="/css/notify.css">
-	<link rel="stylesheet" type="text/css" href="css/newstyle.css"> 
+	<link rel="stylesheet" type="text/css" href="css/newstyle.css">
 </head>
+
 <body>
 	<div class="loader"></div>
 	<!-- login page div -->
 	<div id="loginContainer" class="container text-center">
 		<div class="text-center" style="margin-top:7%;">
-			<figure>
+			<!-- <figure>
 				<img src="img/plivo-logo.png" style="margin-bottom: -1%;">
 				<figcaption class="caption">Plivo Web Client</figcaption>
-			</figure>
+			</figure> -->
 		</div>
 		<div class="text-center loginscreen">
 			<span class="black">
@@ -35,7 +38,8 @@
 			</span>
 			<span class="row">
 				<div class="config-div" style="text-align: right;">
-					<span class="glyphicon glyphicon-cog fa-lg config-login" style="margin-right: 1px;" data-toggle="modal" href="#configparams">	</span>
+					<span class="glyphicon glyphicon-cog fa-lg config-login" style="margin-right: 1px;"
+						data-toggle="modal" href="#configparams"> </span>
 					<span class="config-login" data-toggle="modal" href="#configparams">Config</span>
 				</div>
 				<form>
@@ -44,7 +48,8 @@
 							<label for="loginUser" class="loginUser">USERNAME</label>
 						</div>
 						<div class="form-group col-sm-9">
-							<input type="text" onblur="trimSpace(this)" class="form-control text-center" id="loginUser" name="loginUser" placeholder="plivo userId" value="" autocomplete="username">
+							<input type="text" onblur="trimSpace(this)" class="form-control text-center" id="loginUser"
+								name="loginUser" placeholder="plivo userId" value="" autocomplete="username">
 						</div>
 					</div>
 					<div class="row">
@@ -52,313 +57,329 @@
 							<label for="loginPwd" class="loginPwd">PASSWORD</label>
 						</div>
 						<div class="form-group col-sm-9">
-							<input type="password" class="form-control text-center" id="loginPwd" placeholder="password" name="loginPwd" autocomplete="current-password">
-						</div> 
+							<input type="password" class="form-control text-center" id="loginPwd" placeholder="password"
+								name="loginPwd" autocomplete="current-password">
+						</div>
 					</div>
 				</form>
 				<div class="row">
 					<button type="submit" class="btn btn-success" id=clickLogin>Login</button>
 				</div>
 			</span>
-			
+
 		</div>
 
 		<nav class="navbar navbar-fixed-bottom" style="position: relative;">
-            <div class="container text-center">
-                <p class="navbar-text col-md-12 col-sm-12 col-xs-12">© Plivo Inc. 2024 - All Rights Reserved</p>
-            </div>
-        </nav>
+			<div class="container text-center">
+				<p class="navbar-text col-md-12 col-sm-12 col-xs-12">© Plivo Inc. 2024 - All Rights Reserved</p>
+			</div>
+		</nav>
 
 	</div>
 
 	<!-- settings div -->
 	<div class="modal fade" id="configparams" role="dialog">
 		<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header text-center">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title"><strong>OPTIONS FOR INITIALIZING THE PLIVO WEBSDK OBJECT</strong></h4>
+			<div class="modal-content">
+				<div class="modal-header text-center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><strong>OPTIONS FOR INITIALIZING THE PLIVO WEBSDK OBJECT</strong></h4>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+						<form>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="loglevel" class="middleLabel">LOG LEVEL</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Enable log level in JS log"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<select class="form-control jcf-hidden" name="loglevelbtn" id="loglevelbtn">
+										<option value="INFO">INFO</option>
+										<option value="OFF">OFF</option>
+										<option value="ERROR">ERROR</option>
+										<option value="WARN">WARN</option>
+										<option value="DEBUG">DEBUG</option>
+										<option value="ALL">ALL</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="micaccess">ASK FOR MIC ACCESS</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Request for mic access before login or call initiation"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="micaccess" id="onpageload" checked> ON PAGE LOAD
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="micaccess" id="oncallinit"> ON CALL INITIATION
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="callquality">MONITOR CALL QUALITY</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Enable media metrics and call quality tracking"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="callquality" id="monitorquality" checked> YES
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="callquality" id="dontmonitorquality"> NO
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="closeprotection">BROWSER TAB CLOSE PROTECTION</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Show dialog prompt while closing the app when call is in progress"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="closeprotection" id="closeprotect"> YES
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="closeprotection" id="dontcloseprotect" checked> NO
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="dscp">DSCP</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Enable QoS in voice traffic"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="dscp" id="allowdscp" checked> ENABLED
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="dscp" id="nodscp"> DISABLED
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="multipleincoming">MULTIPLE INCOMING CALLS</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Enable multiple incoming calls to the endpoint at same time"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="multipleincoming" id="allowincoming"> ALLOWED
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="radio" name="multipleincoming" id="noincoming" checked> RESTRICTED
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="msregion" class="middleLabel">PLIVO MS REGION</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Route calls to specific MediaServer POPs"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<select class="form-control jcf-hidden" name="msregionbtn" id="msregionbtn">
+										<option value="AUTO">AUTO</option>
+										<option value="usa_west">USA-WEST</option>
+										<option value="usa_east">USA-EAST</option>
+										<option value="australia">AUSTRALIA</option>
+										<option value="europe">EUROPE</option>
+										<option value="asia">ASIA</option>
+										<option value="south_america">SOUTH-AMERICA</option>
+										<option value="south_asia">SOUTH-ASIA</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="bitrate" class="middleLabel">MAX AVERAGE BITRATE</label>
+									<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip"
+										title="Controls your application’s bandwidth consumption for calls"></span>
+								</div>
+								<div class="form-group col-sm-2">
+									<input type="text" onblur="trimSpace(this)" class="form-control" id="averagebitrate"
+										name="averagebitrate" value=48000>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="updateSettings" class="btn btn-primary config-update" data-dismiss="modal"
+						data-toggle="tooltip" title="Please reload the page to update options in SDK">Update</button>
+					<button type="button" id="resetSettings" class="btn btn-outline-primary config-reset">Reset</button>
+				</div>
 			</div>
-			<div class="modal-body">
-				<div class="container">
-					<form>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="loglevel" class="middleLabel">LOG LEVEL</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Enable log level in JS log"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<select class="form-control jcf-hidden" name="loglevelbtn" id="loglevelbtn">
-									<option value="INFO">INFO</option>
-									<option value="OFF">OFF</option>
-									<option value="ERROR">ERROR</option>
-									<option value="WARN">WARN</option>
-									<option value="DEBUG">DEBUG</option>
-									<option value="ALL">ALL</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="micaccess">ASK FOR MIC ACCESS</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Request for mic access before login or call initiation"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="micaccess" id="onpageload" checked> ON PAGE LOAD
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="micaccess" id="oncallinit"> ON CALL INITIATION
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="callquality">MONITOR CALL QUALITY</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Enable media metrics and call quality tracking"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="callquality" id="monitorquality" checked> YES
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="callquality" id="dontmonitorquality"> NO
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="closeprotection">BROWSER TAB CLOSE PROTECTION</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Show dialog prompt while closing the app when call is in progress"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="closeprotection" id="closeprotect"> YES
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="closeprotection" id="dontcloseprotect" checked> NO
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="dscp">DSCP</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Enable QoS in voice traffic"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="dscp" id="allowdscp" checked> ENABLED
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="dscp" id="nodscp"> DISABLED
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="multipleincoming">MULTIPLE INCOMING CALLS</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Enable multiple incoming calls to the endpoint at same time"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="multipleincoming" id="allowincoming"> ALLOWED
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="radio" name="multipleincoming" id="noincoming" checked> RESTRICTED
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="msregion" class="middleLabel">PLIVO MS REGION</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Route calls to specific MediaServer POPs"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<select class="form-control jcf-hidden" name="msregionbtn" id="msregionbtn">
-									<option value="AUTO">AUTO</option>
-									<option value="usa_west">USA-WEST</option>
-									<option value="usa_east">USA-EAST</option>
-									<option value="australia">AUSTRALIA</option>
-									<option value="europe">EUROPE</option>
-									<option value="asia">ASIA</option>
-									<option value="south_america">SOUTH-AMERICA</option>
-									<option value="south_asia">SOUTH-ASIA</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-1">
-							</div>
-							<div class="form-group col-sm-4">
-								<label for="bitrate" class="middleLabel">MAX AVERAGE BITRATE</label>
-								<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Controls your application’s bandwidth consumption for calls"></span>
-							</div>
-							<div class="form-group col-sm-2">
-								<input type="text" onblur="trimSpace(this)" class="form-control" id="averagebitrate" name="averagebitrate" value=48000>
-							</div>
-						</div>
-					</form>
-				</div>		    
-			</div>
-			<div class="modal-footer">	    
-				<button type="button" id="updateSettings" class="btn btn-primary config-update" data-dismiss="modal" data-toggle="tooltip" title="Please reload the page to update options in SDK">Update</button>
-				<button type="button" id="resetSettings" class="btn btn-outline-primary config-reset">Reset</button>	
-			</div>
-		</div>
 		</div>
 	</div>
 
 	<!-- audiodevices div -->
 	<div class="modal fade" id="popAudioDevices" role="dialog">
 		<div class="modal-dialog modal-lg">
-		  <div class="modal-content">
-		    <div class="modal-header text-center">
-		      <button type="button" class="close" data-dismiss="modal">&times;</button>
-		      <h4 class="modal-title"><strong>AUDIO DEVICE SETTINGS</strong></h4>
-		    </div>
-		    <div class="modal-body">
-				  <form>
-					<div class="row">
-						<div class="form-group col-sm-1">
+			<div class="modal-content">
+				<div class="modal-header text-center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><strong>AUDIO DEVICE SETTINGS</strong></h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="row">
+							<div class="form-group col-sm-1">
+							</div>
+							<div class="form-group col-sm-2">
+								<label for="micDev" class="middleLabel micsettingsLabel">MICROPHONE</label>
+							</div>
+							<div class="form-group col-sm-9">
+								<select class="form-control" id="micDev">
+								</select>
+							</div>
 						</div>
-						<div class="form-group col-sm-2">
-							<label for="micDev" class="middleLabel micsettingsLabel">MICROPHONE</label>
+						<div class="row">
+							<div class="form-group col-sm-3">
+							</div>
+							<div class="form-group col-sm-2">
+								<label class="micLabel">INPUT LEVEL</label>
+							</div>
+							<div class="pids-wrapper">
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+								<div class="pidinput"></div>
+							</div>
+							<p class="pull-right audio-text">(Speak to test your mic)</p>
 						</div>
-						<div class="form-group col-sm-9">
-							<select class="form-control" id="micDev">
-							</select>
-						</div>	
-					</div>
-					<div class="row">
-						<div class="form-group col-sm-3">
+						<div class="row">
+							<div class="form-group col-sm-1">
+							</div>
+							<div class="form-group col-sm-2">
+								<label for="speakerDev" class="middleLabel micsettingsLabel">SPEAKER</label>
+							</div>
+							<div class="form-group col-sm-9">
+								<select class="form-control" id="speakerDev">
+								</select>
+							</div>
 						</div>
-						<div class="form-group col-sm-2">
-							<label class="micLabel">INPUT LEVEL</label>
+						<div class="row">
+							<div class="form-group col-sm-3">
+							</div>
+							<div class="form-group col-sm-2">
+								<label class="micLabel">OUTPUT LEVEL</label>
+							</div>
+							<div class="pids-wrapper">
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+								<div class="pidspeakeroutput"></div>
+							</div>
+							<button type=button class="btn btn-success pull-right audio-btn"
+								id=speakerDevTest>Test</button>
 						</div>
-						<div class="pids-wrapper">
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
-							<div class="pidinput"></div>
+						<div class="row">
+							<div class="form-group col-sm-1">
+							</div>
+							<div class="form-group col-sm-2">
+								<label for="ringtoneDev" class="middleLabel micsettingsLabel">RINGTONE</label>
+							</div>
+							<div class="form-group col-sm-9">
+								<select class="form-control" id="ringtoneDev">
+								</select>
+							</div>
 						</div>
-						<p class="pull-right audio-text">(Speak to test your mic)</p>
-					</div>
-					<div class="row">
-						<div class="form-group col-sm-1">
+						<div class="row">
+							<div class="form-group col-sm-3">
+							</div>
+							<div class="form-group col-sm-2">
+								<label class="micLabel">OUTPUT LEVEL</label>
+							</div>
+							<div class="pids-wrapper">
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+								<div class="pidringoutput"></div>
+							</div>
+							<button type=button class="btn btn-success pull-right audio-btn"
+								id=ringtoneDevTest>Test</button>
 						</div>
-						<div class="form-group col-sm-2">
-							<label for="speakerDev" class="middleLabel micsettingsLabel">SPEAKER</label>
+						<div class="text-center">
+							<button type=button class="btn btn-success" id=allowAudioDevices>Reload Audio
+								Devices</button>
+							<h3 class="text-center text-success"><i>* Headsets works better in reducing background noise
+									and echo</i></h3>
 						</div>
-						<div class="form-group col-sm-9">
-							<select class="form-control" id="speakerDev">
-							</select>
-						</div>	
-					</div>
-					<div class="row">
-						<div class="form-group col-sm-3">
-						</div>
-						<div class="form-group col-sm-2">
-							<label class="micLabel">OUTPUT LEVEL</label>
-						</div>
-						<div class="pids-wrapper">
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-							<div class="pidspeakeroutput"></div>
-						</div>
-						<button type=button class="btn btn-success pull-right audio-btn" id=speakerDevTest>Test</button>
-					</div>
-					<div class="row">
-						<div class="form-group col-sm-1">
-						</div>
-						<div class="form-group col-sm-2">
-							<label for="ringtoneDev" class="middleLabel micsettingsLabel">RINGTONE</label>
-						</div>
-						<div class="form-group col-sm-9">
-							<select class="form-control" id="ringtoneDev">
-							</select>
-						</div>	
-					</div>
-					<div class="row">
-						<div class="form-group col-sm-3">
-						</div>
-						<div class="form-group col-sm-2">
-							<label class="micLabel">OUTPUT LEVEL</label>
-						</div>
-						<div class="pids-wrapper">
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-							<div class="pidringoutput"></div>
-						</div>
-						<button type=button class="btn btn-success pull-right audio-btn" id=ringtoneDevTest>Test</button>	
-					</div>
-				    <div class="text-center">
-						<button type=button class="btn btn-success" id=allowAudioDevices>Reload Audio Devices</button>
-						<h3 class="text-center text-success"><i>* Headsets works better in reducing background noise and echo</i></h3>					    	
-				    </div>
-				  </form>
-		    </div>
-		  </div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<!-- media not allowed div -->
 	<div class="modal fade" id="mediaAccessBlock" role="dialog">
 		<div class="modal-dialog modal-lg">
-		  <div class="modal-content">
-		    <div class="modal-header">
-		      <button type="button" class="close" data-dismiss="modal">&times;</button>
-		      <h4 class="modal-title">Audio device access is blocked Please allow!</h4>
-		    </div>
-		    <div class="modal-body">
-				<div class="container">          
-				  <img src="img/micdenied.png" class="img-rounded" width="304" height="236"> 
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Audio device access is blocked Please allow!</h4>
 				</div>
-		    </div>
-		    <div class="modal-footer">
-		   		<h4 class="text-center lead">Have a look at your right hand side of your address bar</h4>
-		    </div>		    
-		  </div>
+				<div class="modal-body">
+					<div class="container">
+						<img src="img/micdenied.png" class="img-rounded" width="304" height="236">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<h4 class="text-center lead">Have a look at your right hand side of your address bar</h4>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<!-- mic blocked after perm -->
 	<div class="modal fade" id="micAccessBlock" role="dialog">
 		<div class="modal-dialog modal-lg">
-		  <div class="modal-content">
-		    <div class="modal-header">
-		      <button type="button" class="close" data-dismiss="modal">&times;</button>
-		      <h4 class="modal-title">Mic input access is blocked</h4>
-		    </div>
-		    <div class="modal-body">
-				<h4>
-					Your browser has some issues in accessing your microphone in the hardware. Please close all running chrome and open back your browser to fix it.
-				</h4>
-		    </div>	    
-		  </div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Mic input access is blocked</h4>
+				</div>
+				<div class="modal-body">
+					<h4>
+						Your browser has some issues in accessing your microphone in the hardware. Please close all
+						running chrome and open back your browser to fix it.
+					</h4>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -385,7 +406,7 @@
 						</div>
 					</form>
 				</div>
-			</div>		
+			</div>
 		</div>
 	</div>
 
@@ -412,95 +433,108 @@
 						</div>
 					</form>
 				</div>
-			</div>		
+			</div>
 		</div>
 	</div>
 
 	<!-- feedback div-->
 	<div class="modal fade" id="sendQualityFeedback" role="dialog">
 		<div class="modal-dialog modal-lg">
-		  <div class="modal-content">
-		    <div class="modal-header text-center">
-		      <button type="button" class="close" data-dismiss="modal">&times;</button>
-		      <h4 class="modal-title"><strong>RATE THE QUALITY OF LAST CALL</strong></h4>
-		    </div>
-		    <div class="modal-body">
-				<div class="container">
-					<div class="form-group row feedback-status" id="feedbackStatus"></div>	
-				    <div class="form-group col-sm-9">
-						<section class='rating-widget'>
-							<div class="form-group col-sm-4">
-							</div>
-							<div class='rating-stars'>
-								<ul id='stars'>
-								<li class='star' data-value='1'>
-									<i class='fa fa-star fa-fw'></i>
-								</li>
-								<li class='star' data-value='2'>
-									<i class='fa fa-star fa-fw'></i>
-								</li>
-								<li class='star' data-value='3'>
-									<i class='fa fa-star fa-fw'></i>
-								</li>
-								<li class='star' data-value='4'>
-									<i class='fa fa-star fa-fw'></i>
-								</li>
-								<li class='star' data-value='5'>
-									<i class='fa fa-star fa-fw'></i>
-								</li>
-								</ul>
-							</div>
-							<div class="form-group lowQualityRadios">
-								<div class="col-sm-4 feedbackComment">
-									<textarea class="feedbackTextArea" rows="4" id="sendFeedbackComment" placeholder="Optional comments"></textarea>
-									<label><input id=sendConsoleLogs type="checkbox" style="margin-right:5px;">Send Console Logs</label>
-								</div>
-								<div class="col-sm-4 feedbackIssue">
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="AUDIO_LAG">Audio Lag</label>
-									</div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="BROKEN_AUDIO">Broken Audio</label>
-									</div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="CALL_DROPPED">Call Dropped</label>
-									</div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="CALLERID_ISSUES">Callerid Issue</label>
-									</div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="DIGITS_NOT_CAPTURED">Digits Not Captured</label>
-									</div>	
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="ECHO">Echo</label>
-									</div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="HIGH_CONNECT_TIME">High Connect Time</label>
-									</div>
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="LOW_AUDIO_LEVEL">Low Audio Level</label>
-									</div>	
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="ONE_WAY_AUDIO">One Way audio</label>
-									</div>	
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="ROBOTIC_AUDIO">Robotic Audio</label>
-									</div>	
-									<div class="checkbox">
-										<label><input type="checkbox" name="callqualitycheck" value="OTHERS">Others</label>
-									</div>	
-									<label>* Mandatory to select atleast one issue for feedback</label>
-								</div>
-							</div> 
-						</section>
-				    </div>
+			<div class="modal-content">
+				<div class="modal-header text-center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><strong>RATE THE QUALITY OF LAST CALL</strong></h4>
 				</div>
-		    </div>
-		    <div class="modal-footer">
-		   		<button type="button" class="btn btn-primary" id=sendFeedback >Send</button>
-		   		<button class="btn btn-outline-primary" data-dismiss="modal" id=ignoreFeedback>Ignore</button>
-		    </div>
-		  </div>
+				<div class="modal-body">
+					<div class="container">
+						<div class="form-group row feedback-status" id="feedbackStatus"></div>
+						<div class="form-group col-sm-9">
+							<section class='rating-widget'>
+								<div class="form-group col-sm-4">
+								</div>
+								<div class='rating-stars'>
+									<ul id='stars'>
+										<li class='star' data-value='1'>
+											<i class='fa fa-star fa-fw'></i>
+										</li>
+										<li class='star' data-value='2'>
+											<i class='fa fa-star fa-fw'></i>
+										</li>
+										<li class='star' data-value='3'>
+											<i class='fa fa-star fa-fw'></i>
+										</li>
+										<li class='star' data-value='4'>
+											<i class='fa fa-star fa-fw'></i>
+										</li>
+										<li class='star' data-value='5'>
+											<i class='fa fa-star fa-fw'></i>
+										</li>
+									</ul>
+								</div>
+								<div class="form-group lowQualityRadios">
+									<div class="col-sm-4 feedbackComment">
+										<textarea class="feedbackTextArea" rows="4" id="sendFeedbackComment"
+											placeholder="Optional comments"></textarea>
+										<label><input id=sendConsoleLogs type="checkbox" style="margin-right:5px;">Send
+											Console Logs</label>
+									</div>
+									<div class="col-sm-4 feedbackIssue">
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="AUDIO_LAG">Audio Lag</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="BROKEN_AUDIO">Broken Audio</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="CALL_DROPPED">Call Dropped</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="CALLERID_ISSUES">Callerid Issue</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="DIGITS_NOT_CAPTURED">Digits Not Captured</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="ECHO">Echo</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="HIGH_CONNECT_TIME">High Connect Time</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="LOW_AUDIO_LEVEL">Low Audio Level</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="ONE_WAY_AUDIO">One Way audio</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="ROBOTIC_AUDIO">Robotic Audio</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="callqualitycheck"
+													value="OTHERS">Others</label>
+										</div>
+										<label>* Mandatory to select atleast one issue for feedback</label>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id=sendFeedback>Send</button>
+					<button class="btn btn-outline-primary" data-dismiss="modal" id=ignoreFeedback>Ignore</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -508,10 +542,10 @@
 	<div id="callContainer" class="container" style="display: none;">
 		<div class="page-header borderline">
 			<div class="text-center" style="margin-top: -35px;">
-				<figure>
+				<!-- <figure>
 					<img src="img/plivo-logo.png" style="margin-bottom: -1%;">
 					<figcaption class="caption">Plivo Web Client</figcaption>
-				</figure>
+				</figure> -->
 			</div>
 			<div class="row">
 				<div class="col-sm-9">
@@ -519,7 +553,8 @@
 					<span id=sipUserName class="label-value">Not ready...</span>
 				</div>
 				<div class="col-sm-3" style="text-align:right;">
-					<span class="glyphicon glyphicon-off logout"></span><span class="logout" style="margin-right:1px;">Logout</span>
+					<span class="glyphicon glyphicon-off logout"></span><span class="logout"
+						style="margin-right:1px;">Logout</span>
 				</div>
 			</div>
 		</div>
@@ -528,15 +563,20 @@
 			<div>
 				<span class="lead text-success">CALL STATUS: </span>
 				<span id=callstatus class="label-value">Idle</span>
-				<span class="config pull-right" data-toggle="modal" data-target="#configparams" style="margin-right: 4px;">Config</span><span class="glyphicon glyphicon-cog fa-lg pull-right config-cog" data-toggle="modal" data-target="#configparams"></span>
+				<span class="config pull-right" data-toggle="modal" data-target="#configparams"
+					style="margin-right: 4px;">Config</span><span
+					class="glyphicon glyphicon-cog fa-lg pull-right config-cog" data-toggle="modal"
+					data-target="#configparams"></span>
 			</div>
 			<div class="panel-body">
 				<div class="container">
 					<div id="loginkeypad">
 						<div class="col-md-4 phone" id="phone">
 							<div class="col-md-12 white-shadow">
-								<input type="tel" class="form-control tel" id="toNumber">
-								<div class="num-pad">			                    
+								<!-- <input type="tel" class="form-control tel" id="toNumber" disabled> -->
+								<input type="text" class="form-control tel" id="toNumber1" style="display: none;">
+
+								<!-- <div class="num-pad">			                    
 									<div class="span4">
 										<div class="num">
 											<div class="txt">
@@ -648,25 +688,32 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 								<div class="clearfix">
 								</div>
-								<div class="form-inline calleridinfo">
-									<label for="calleridlabel" class="control-label">CALLER ID: 
-										<input type="text" name="callerid" class="form-control" id="callerid" placeholder="SET CALLER ID">
-										<span id="saveCallerId" class="glyphicon glyphicon-ok-circle fa-lg" style="cursor:pointer;" data-toggle="tooltip" title="Save Caller ID"></span>
-										<span id="removeCallerId" class="glyphicon glyphicon-remove-circle fa-lg calleridRemove" data-toggle="tooltip" title="Remove Caller ID"></span>
+								<!-- <div class="form-inline calleridinfo">
+									<label for="calleridlabel" class="control-label">CALLER ID:
+										<input type="text" name="callerid" class="form-control" id="callerid"
+											placeholder="SET CALLER ID">
+										<span id="saveCallerId" class="glyphicon glyphicon-ok-circle fa-lg"
+											style="cursor:pointer;" data-toggle="tooltip" title="Save Caller ID"></span>
+										<span id="removeCallerId"
+											class="glyphicon glyphicon-remove-circle fa-lg calleridRemove"
+											data-toggle="tooltip" title="Remove Caller ID"></span>
 									</label>
-								</div>
-								<button id=makecall class="btn btn-success makecall">CALL</button>
+								</div> -->
+								<button id=makecall class="btn btn-success makecall"
+									style="margin-top: 10px;">CALL</button>
 								<div class="micsettingslink text-center">
-									<a id="micsettingslink" data-toggle="modal" href="#popAudioDevices">MIC/SPEAKER SETTINGS</a>
+									<a id="micsettingslink" data-toggle="modal" href="#popAudioDevices">MIC/SPEAKER
+										SETTINGS</a>
 								</div>
-								<div class="form-check text-center" style="margin-top: 10px; margin-bottom: 10px;" id="ongoingNoiseReduction">
+								<div class="form-check text-center" style="margin-top: 10px; margin-bottom: 10px;"
+									id="ongoingNoiseReduction">
 									<input type="checkbox" class="form-check-input" id="toggleButton">
 									<label class="form-check-label" for="toggleButton">Enable Noise Reduction</label>
 								</div>
-								<div id = 'noiseReduction'></div>
+								<div id='noiseReduction'></div>
 							</div>
 							<div class="clearfix">
 							</div>
@@ -675,14 +722,15 @@
 							<div class="row1">
 								<div class="col-md-12 white-shadow">
 									<div class="text-center">
-										<h4 id="boundType">Fetching...</h4>
+										<!-- <h4 id="boundType">Fetching...</h4> -->
 										<h2 id="callDuration">00:00</h2>
-									</div>	
+									</div>
 									<div class="row" style="margin-top: 40px;">
 										<div class="form-group col-sm-1">
 										</div>
 										<div class="form-group col-sm-1" data-toggle="mute" id="tmute">
-											<i class="tmute fa fa-microphone fa-lg callinfoIcon" style="cursor:pointer;"></i>
+											<i class="tmute fa fa-microphone fa-lg callinfoIcon"
+												style="cursor:pointer;"></i>
 										</div>
 										<div class="pids-wrapper">
 											<div class="pidlocalaudio callinfoPid"></div>
@@ -691,7 +739,8 @@
 											<div class="pidlocalaudio"></div>
 											<div class="pidlocalaudio"></div>
 											<div class="pidlocalaudio"></div>
-											<a class="miclink" id="miclink" data-toggle="modal" href="#inputToggle">SELECT INPUT</a>
+											<a class="miclink" id="miclink" data-toggle="modal"
+												href="#inputToggle">SELECT INPUT</a>
 										</div>
 									</div>
 									<div class="row" style="margin-top: 20px;">
@@ -707,12 +756,14 @@
 											<div class="pidremoteaudio"></div>
 											<div class="pidremoteaudio"></div>
 											<div class="pidremoteaudio"></div>
-											<a class="speakerlink" id="speakerlink" data-toggle="modal" href="#outputToggle">SELECT OUTPUT</a>
+											<a class="speakerlink" id="speakerlink" data-toggle="modal"
+												href="#outputToggle">SELECT OUTPUT</a>
 										</div>
 									</div>
 									<div class="text-center" id="answerkeypad">
 										<span class="glyphicon glyphicon-th fa-lg">
-											<button id=showKeypad class="btn btn-default" value="showKeypad">SHOW KEYPAD</button>
+											<button id=showKeypad class="btn btn-default" value="showKeypad">SHOW
+												KEYPAD</button>
 										</span>
 									</div>
 									<div id="callanswerpad">
@@ -743,7 +794,8 @@
 										</div>
 									</div>
 									<div class="micsettingslink text-center" style="font-size:15px;">
-										<a id="micsettingslink" data-toggle="modal" href="#popAudioDevices">MIC/SPEAKER SETTINGS</a>
+										<a id="micsettingslink" data-toggle="modal" href="#popAudioDevices">MIC/SPEAKER
+											SETTINGS</a>
 									</div>
 								</div>
 							</div>
@@ -752,7 +804,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 
 
@@ -769,16 +821,17 @@
 	<script src="js/utils.js"></script>
 	<script src="js/customclient.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			console.log( "HTML ready!" );
+		$(document).ready(function () {
+			console.log("HTML ready!");
 			$('[data-toggle="tooltip"]').tooltip();
 			initPhone();
 		});
-		
-		var input = document.querySelector("#toNumber");
-		var iti = window.intlTelInput(input,({
-		}));
-		setIti(iti);
+
+		// var input = document.querySelector("#toNumber");
+		// var iti = window.intlTelInput(input, ({
+		// }));
+		// setIti(iti);
 	</script>
 </body>
+
 </html>

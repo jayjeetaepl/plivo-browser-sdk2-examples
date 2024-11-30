@@ -56,27 +56,14 @@ window.addEventListener("message", (event) => {
 });
 
 window.onload = function () {
-	// Get the encrypted number from the URL
-	const urlParams = new URLSearchParams(window.location.search);
-	const encryptedNumber = urlParams.get("number");
-	let decryptedNumber = "", secretKey = "yourSecretKey";
-
-	if (encryptedNumber) {
-		try {
-			console.log(`here`)
-			const decryptedBytes = CryptoJS.AES.decrypt(encryptedNumber, secretKey);
-			decryptedNumber = '+' + decryptedBytes.toString(CryptoJS.enc.Utf8);
-
-		} catch (error) {
-			console.error("Decryption failed:", error);
-			decryptedNumber = "Invalid number";
-		}
-	} else {
-		decryptedNumber = "No number provided";
-	}
-	$('#toNumber1').val(decryptedNumber)
+	$('#toNumber1').val('+917978684715')
 	// toNumberInput.value = decryptedNumber || "Unknown";
 };
+$(document).ready(function () {
+	setTimeout(() => { $('#clickLogin').click(); }, 0)
+	// Assuming you are targeting an element with the ID "clickLogin"
+});
+
 String.prototype.calltimer = function () {
 	var sec_num = parseInt(this, 10);
 	var hours = Math.floor(sec_num / 3600);
@@ -911,6 +898,14 @@ $('#tmute').click(function (e) {
 });
 
 $('#makecall').click(function (e) {
+
+	// Get the encrypted number from the URL
+	const urlParams = new URLSearchParams(window.location.search);
+	const uid = urlParams.get("uid");
+	console.log("uid", uid);
+	const deviceId = urlParams.get("deviceId");
+	console.log("deviceId", deviceId);
+	//api call
 	var to = $('#toNumber1').val()
 	extraHeaders = {};
 	// 	customCallerId = localStorage.getItem('callerId');

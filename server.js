@@ -21,6 +21,13 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+// set the home page route
+app.get('/caller', function (req, res) {
+  // ejs render automatically looks in the views folder
+  res.render('index1');
+});
+
+
 app.listen(port, function() {
   console.log('Our app is running on http://localhost:' + port);
 });

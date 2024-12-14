@@ -59,8 +59,30 @@ window.onload = function () {
 	$('#toNumber1').val('+917978684715')
 	// toNumberInput.value = decryptedNumber || "Unknown";
 };
+const secretKey = "mySecretKey123";
+
+
+const decryptPassword = (encryptedText) => {
+	try {
+		const bytes = CryptoJS.AES.decrypt(encryptedText.toString(), secretKey);
+		console.log("bytes", bytes);
+		const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+		console.log("decrypted", decrypted);
+
+		if (!decrypted) throw new Error("Decryption Failed! Check the key or data.");
+		return decrypted;
+	} catch (error) {
+		console.error("Decryption error:", error.message);
+		return null;
+	}
+};
+
+
 $(document).ready(function () {
-	setTimeout(() => { $('#clickLogin').click(); }, 0)
+
+	setTimeout(() => {
+		$('#clickLogin').click();
+	}, 500)
 	// Assuming you are targeting an element with the ID "clickLogin"
 });
 
@@ -94,6 +116,7 @@ function kickStartNow() {
 }
 
 function login(username, password) {
+	console.log("username, password", username, password);
 	if (username && password) {
 		//start UI load spinner
 		kickStartNow();
@@ -1010,8 +1033,15 @@ $('.logout').click(function (e) {
 
 $('#clickLogin').click(function (e) {
 	var userName = $('#loginUser').val();
-	var password = $('#loginPwd').val();
-	login(userName, password);
+	// var password = $('#loginPwd').val()	
+	const urlParams = new URLSearchParams(window.location.search);
+	const password = urlParams.get("pass")	
+	
+	const pass = decryptPassword(password)
+	
+	$('loginPwd').val(`${pass}`);
+
+	login(userName, pass);
 });
 
 
